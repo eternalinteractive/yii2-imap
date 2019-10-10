@@ -1,6 +1,6 @@
 <?php
 
-namespace unyii2\imap;
+namespace kekaadrenalin\imap;
 
 /**
    *Copyright (c) 2012 by Barbushin Sergey <barbushin@gmail.com>.

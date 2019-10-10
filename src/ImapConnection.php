@@ -1,6 +1,6 @@
 <?php
 
-namespace unyii2\imap;
+namespace kekaadrenalin\imap;
 
 class ImapConnection {
 
