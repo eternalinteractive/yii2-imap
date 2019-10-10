@@ -1,7 +1,7 @@
 yii2 Imap
 ==========
 
-[![Total Downloads](https://img.shields.io/packagist/dt/unyii2/yii2-imap.svg?style=flat-square)](https://packagist.org/packages/unyii2/yii2-imap) 
+[![Total Downloads](https://img.shields.io/packagist/dt/kekaadrenalin/yii2-imap.svg?style=flat-square)](https://packagist.org/packages/unyii2/yii2-imap) 
 
 
 This library is a fork of https://github.com/yiioverflow/yii2-imap
@@ -11,13 +11,13 @@ Installation by composer
 ```composer
 {
     "require": {
-       "unyii2/yii2-imap": "dev-master"
+       "kekaadrenalin/yii2-imap": "dev-master"
     }
 }
 
 Or
 
-$ composer require unyii2/yii2-imap "dev-master"
+$ composer require kekaadrenalin/yii2-imap "dev-master"
 ```
 
 # Use as compnent
@@ -28,7 +28,7 @@ Connection details define in component
 'components' => [
       ...
       'imap' => [
-         'class' => 'unyii2\imap\Imap',
+         'class' => 'kekaadrenalin\imap\Imap',
          'connection' => [
               'imapPath' => '{imap.gmail.com:993/imap/ssl}INBOX',
               'imapLogin' => 'username',
@@ -43,7 +43,7 @@ Connection details define in component
 
 //4th Param _DIR_ is the location to save attached files 
 //Eg: /path/to/application/mail/uploads.
-$mailbox = new unyii2\Mailbox(yii::$app->imap->connection);
+$mailbox = new kekaadrenalin\Mailbox(yii::$app->imap->connection);
 ```
 
 # Usage as library
@@ -52,7 +52,7 @@ Connection details set on fly
 
 ```php
 
-$imapConnection = new unyii2\imap\ImapConnection
+$imapConnection = new kekaadrenalin\imap\ImapConnection
 
 $imapConnection->imapPath = '{imap.gmail.com:993/imap/ssl}INBOX';
 $imapConnection->imapLogin = 'username';
@@ -63,7 +63,7 @@ $imapConnection->attachmentsDir = '/';
 
 //4th Param _DIR_ is the location to save attached files 
 //Eg: /path/to/application/mail/uploads.
-$mailbox = new unyii2\Mailbox($imapConnection);
+$mailbox = new kekaadrenalin\Mailbox($imapConnection);
 ```
 
 #To get all mails and its index
