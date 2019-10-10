@@ -1,7 +1,7 @@
 yii2 Imap
 ==========
 
-[![Total Downloads](https://img.shields.io/packagist/dt/kekaadrenalin/yii2-imap.svg?style=flat-square)](https://packagist.org/packages/unyii2/yii2-imap) 
+[![Total Downloads](https://img.shields.io/packagist/dt/kekaadrenalin/yii2-imap.svg?style=flat-square)](https://packagist.org/packages/kekaadrenalin/yii2-imap) 
 
 
 This library is a fork of https://github.com/yiioverflow/yii2-imap
