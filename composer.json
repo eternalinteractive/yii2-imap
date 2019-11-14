@@ -16,6 +16,8 @@
     "require": {
         "php": ">=7.0.0",
         "ext-imap": "*",
+        "ext-iconv": "*",
+        "ext-mbstring": "*",
         "yiisoft/yii2": "~2.0.0"
     },
     "autoload": {

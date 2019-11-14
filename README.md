@@ -20,30 +20,28 @@ Or
 $ composer require kekaadrenalin/yii2-imap "dev-master"
 ```
 
-# Use as compnent
+# Use as component
 
 Connection details define in component
 
 ```php
 'components' => [
-      ...
-      'imap' => [
-         'class' => 'kekaadrenalin\imap\Imap',
-         'connection' => [
-              'imapPath' => '{imap.gmail.com:993/imap/ssl}INBOX',
-              'imapLogin' => 'username',
-              'imapPassword' => 'password',
-              'serverEncoding'=>'encoding', // utf-8 default.
-              'attachmentsDir'=>'/'
+    ...
+    'imap' => [
+        'class' => 'kekaadrenalin\imap\Imap',
+        'connection' => [
+            'imapPath'       => '{imap.gmail.com:993/imap/ssl}INBOX',
+            'imapLogin'      => 'username',
+            'imapPassword'   => 'password',
+            'serverEncoding' => 'encoding', // utf-8 default.
+            'attachmentsDir' => '/',
+            'decodeMimeStr'  => true, // Return as is, default -> true
         ],
     ],
     ...
  ],
 
-
-//4th Param _DIR_ is the location to save attached files 
-//Eg: /path/to/application/mail/uploads.
-$mailbox = new kekaadrenalin\Mailbox(yii::$app->imap->connection);
+$mailbox = new kekaadrenalin\Mailbox(Yii::$app->imap->connection);
 ```
 
 # Usage as library
@@ -51,29 +49,28 @@ $mailbox = new kekaadrenalin\Mailbox(yii::$app->imap->connection);
 Connection details set on fly
 
 ```php
-
-$imapConnection = new kekaadrenalin\imap\ImapConnection
+$imapConnection = new kekaadrenalin\imap\ImapConnection;
 
 $imapConnection->imapPath = '{imap.gmail.com:993/imap/ssl}INBOX';
 $imapConnection->imapLogin = 'username';
 $imapConnection->imapPassword = 'password';
 $imapConnection->serverEncoding = 'encoding'; // utf-8 default.
 $imapConnection->attachmentsDir = '/';
+$imapConnection->decodeMimeStr = true;
 
-
-//4th Param _DIR_ is the location to save attached files 
-//Eg: /path/to/application/mail/uploads.
 $mailbox = new kekaadrenalin\Mailbox($imapConnection);
 ```
 
 #To get all mails and its index
 ```php
-$mailbox->searchMailBox(ALL)// Prints all Mail ids.
+$mailIds = $mailbox->searchMailBox(); // Gets all Mail ids.
 print_r($mailIds);
 ```
 
 #Do not read attachments
+```php
 $mailbox->readMailParts = false;
+```
 
 #To read Inbox contents
 ```php
@@ -82,35 +79,30 @@ foreach($mailIds as $mailId)
     // Returns Mail contents
     $mail = $mailbox->getMail($mailId); 
 
-    if(alreadyProcesedMessage($mail->messageId)){
-        continue;
-    }
-
-    // Use, if $mailbox->readMailParts = false; 
     // Read mail parts (plain body, html body and attachments
-    $mail = $mailbox->getMailParts($mail);
+    $mailObject = $mailbox->getMailParts($mail);
+    
+    print_r($mailObject); // IncomingMail object
 
     // Returns mail attachements if any or else empty array
-    $attachments = $mail->getAttachments(); 
+    $attachments = $mailObject->getAttachments(); 
     foreach($attachments as $attachment){
         echo ' Attachment:' . $attachment->name . PHP_EOL;
         
         // Delete attachment file
         unlink($attachment->filePath);
-
     }
 }
 ```
 
 #To Mark and delete mail from IMAP server.
 ```php
-//Mark a mail to delete</span></span> 
-$mailbox->deleteMail($mailId); // Deletes all marked mails
-$mailbox->expungeDeletedMails();
+$mailbox->deleteMail($mailId); // Mark a mail to delete
+$mailbox->expungeDeletedMails(); // Deletes all marked mails
 ```
 
 # Contribute
 Feel free to contribute. If you have ideas for examples, add them to the repo and send in a pull request.
 
-# Apreciate
-Dont forgett o Leave me a "star" if you like it. Enjoy coding!
+# Appreciate
+Don't forget to leave me a "star" if you like it. Enjoy coding!
