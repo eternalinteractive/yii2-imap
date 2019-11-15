@@ -82,7 +82,8 @@ foreach($mailIds as $mailId)
     // Read mail parts (plain body, html body and attachments
     $mailObject = $mailbox->getMailParts($mail);
     
-    print_r($mailObject); // IncomingMail object
+    // Array with IncomingMail objects
+    print_r($mailObject);
 
     // Returns mail attachements if any or else empty array
     $attachments = $mailObject->getAttachments(); 
