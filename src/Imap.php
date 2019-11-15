@@ -12,16 +12,6 @@ use yii\base\Component;
 use yii\base\Exception;
 use yii\base\InvalidConfigException;
 
-
-/* 
- * Copyright (c) 2015 by Roopan Valiya Veetil <yiioverflow@gmail.com>.
- * All rights reserved.
- * Date : 29-07-2015
- * Time : 5:20 PM
- * Class can be used for connecting and extracting Email messages.
- * 
- */
-
 /**
  * Imap Component
  *
@@ -91,7 +81,6 @@ class Imap extends Component
      */
     public function createConnection()
     {
-
         $imapConnection = new ImapConnection();
 
         $imapConnection->imapPath = $this->_connectionParams['imapPath'];
