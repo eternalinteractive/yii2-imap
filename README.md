@@ -61,18 +61,18 @@ $imapConnection->decodeMimeStr = true;
 $mailbox = new kekaadrenalin\Mailbox($imapConnection);
 ```
 
-#To get all mails and its index
+# To get all mails and its index
 ```php
 $mailIds = $mailbox->searchMailBox(); // Gets all Mail ids.
 print_r($mailIds);
 ```
 
-#Do not read attachments
+# Do not read attachments
 ```php
 $mailbox->readMailParts = false;
 ```
 
-#To read Inbox contents
+# To read Inbox contents
 ```php
 foreach($mailIds as $mailId)
 {
@@ -95,7 +95,7 @@ foreach($mailIds as $mailId)
 }
 ```
 
-#To Mark and delete mail from IMAP server.
+# To Mark and delete mail from IMAP server.
 ```php
 $mailbox->deleteMail($mailId); // Mark a mail to delete
 $mailbox->expungeDeletedMails(); // Deletes all marked mails
