@@ -42,6 +42,8 @@ class Mailbox
 
     private $markAsSeen = false;
 
+    private $imapStream;
+
     /**
      * Mailbox constructor.
      *
@@ -98,18 +100,17 @@ class Mailbox
      */
     public function getImapStream($forceConnection = true)
     {
-        static $imapStream;
         if ($forceConnection) {
-            if ($imapStream && (!is_resource($imapStream) || !imap_ping($imapStream))) {
+            if ($this->imapStream && (!is_resource($this->imapStream) || !imap_ping($this->imapStream))) {
                 $this->disconnect();
-                $imapStream = null;
+                $this->imapStream = null;
             }
-            if (!$imapStream) {
-                $imapStream = $this->initImapStream();
+            if (!$this->imapStream) {
+                $this->imapStream = $this->initImapStream();
             }
         }
 
-        return $imapStream;
+        return $this->imapStream;
     }
 
     /**
