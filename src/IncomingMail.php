@@ -11,18 +11,18 @@ namespace kekaadrenalin\imap;
 /**
  * Class IncomingMail
  *
- * @property int                      $id
- * @property string                   $date
- * @property string                   $subject
- * @property                          $fromName
- * @property                          $fromAddress
- * @property array                    $to
- * @property                          $toString
- * @property array                    $cc
- * @property array                    $replyTo
- * @property                          $textPlain
- * @property                          $textHtml
- * @property                          $messageId
+ * @property int    $id
+ * @property string $date
+ * @property string $subject
+ * @property        $fromName
+ * @property        $fromAddress
+ * @property array  $to
+ * @property        $toString
+ * @property array  $cc
+ * @property array  $replyTo
+ * @property        $textPlain
+ * @property        $textHtml
+ * @property        $messageId
  *
  * @package kekaadrenalin\imap
  */
