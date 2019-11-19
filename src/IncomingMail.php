@@ -24,8 +24,6 @@ namespace kekaadrenalin\imap;
  * @property                          $textHtml
  * @property                          $messageId
  *
- * @property IncomingMailAttachment[] $attachments Read only
- *
  * @package kekaadrenalin\imap
  */
 class IncomingMail
