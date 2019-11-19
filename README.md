@@ -41,7 +41,7 @@ Connection details define in component
     ...
  ],
 
-$mailbox = new kekaadrenalin\Mailbox(Yii::$app->imap->connection);
+$mailbox = new kekaadrenalin\imap\Mailbox(Yii::$app->imap->connection);
 ```
 
 # Usage as library
@@ -58,7 +58,7 @@ $imapConnection->serverEncoding = 'encoding'; // utf-8 default.
 $imapConnection->attachmentsDir = '/';
 $imapConnection->decodeMimeStr = true;
 
-$mailbox = new kekaadrenalin\Mailbox($imapConnection);
+$mailbox = new kekaadrenalin\imap\Mailbox($imapConnection);
 ```
 
 # To get all mails and its index
