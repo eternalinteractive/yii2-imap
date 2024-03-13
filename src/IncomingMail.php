@@ -23,6 +23,7 @@ namespace kekaadrenalin\imap;
  * @property        $textPlain
  * @property        $textHtml
  * @property        $messageId
+ * @property array  $references
  *
  * @package kekaadrenalin\imap
  */
@@ -51,7 +52,9 @@ class IncomingMail
     public $textHtml;
 
     public $messageId;
-
+    
+    public $references = [];
+    
     /** @var IncomingMailAttachment[] */
     protected $attachments = [];
 

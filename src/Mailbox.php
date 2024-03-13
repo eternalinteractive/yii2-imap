@@ -630,6 +630,13 @@ class Mailbox
                 $mail->replyTo[strtolower((!empty($replyTo->mailbox) ? $replyTo->mailbox : "") . '@' . (!empty($replyTo->host) ? $replyTo->host : ""))] = isset($replyTo->personal) ? $this->decodeMimeStr($replyTo->personal, $this->serverEncoding) : null;
             }
         }
+        
+        if(isset($head->references)) {
+            $arrayReferences = explode(' ', $head->references);
+            foreach($arrayReferences as $reference) {
+                $mail->references[] = $reference;
+            }
+        }
 
         if ($this->readMailParts) {
             $mail = $this->getMailParts($mail);
