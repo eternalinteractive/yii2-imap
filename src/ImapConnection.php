@@ -11,26 +11,37 @@ namespace kekaadrenalin\imap;
 /**
  * Class ImapConnection
  *
- * @property string $imapPath
- * @property string $imapLogin
- * @property string $imapPassword
- * @property string $serverEncoding
- * @property string $attachmentsDir
- * @property bool   $decodeMimeStr
- *
  * @package kekaadrenalin\imap
  */
 class ImapConnection
 {
+    /**
+     * @var string
+     */
     public $imapPath;
 
+    /**
+     * @var string
+     */
     public $imapLogin;
 
+    /**
+     * @var string
+     */
     public $imapPassword;
 
+    /**
+     * @var string
+     */
     public $serverEncoding;
 
+    /**
+     * @var string
+     */
     public $attachmentsDir;
 
+    /**
+     * @var bool
+     */
     public $decodeMimeStr;
 }

@@ -52,9 +52,9 @@ class IncomingMail
     public $textHtml;
 
     public $messageId;
-    
+
     public $references = [];
-    
+
     /** @var IncomingMailAttachment[] */
     protected $attachments = [];
 
@@ -69,17 +69,17 @@ class IncomingMail
     /**
      * @return IncomingMailAttachment[]
      */
-    public function getAttachments()
+    public function getAttachments(): array
     {
         return $this->attachments;
     }
 
     /**
-     * @param $baseUri
+     * @param string $baseUri
      *
-     * @return mixed
+     * @return string|string[]
      */
-    public function replaceInternalLinks($baseUri)
+    public function replaceInternalLinks(string $baseUri)
     {
         $baseUri = rtrim($baseUri, '\\/') . '/';
         $fetchedHtml = $this->textHtml;
@@ -94,28 +94,10 @@ class IncomingMail
 
     /**
      * Get array of internal HTML links placeholders
-     * @return array attachmentId => link placeholder
+     * @return array|false attachmentId => link placeholder
      */
     public function getInternalLinksPlaceholders()
     {
-        return preg_match_all('/=["\'](ci?d:([\w\.%*@-]+))["\']/i', $this->textHtml, $matches) ? array_combine($matches[2], $matches[1]) : [];
+        return preg_match_all('/=["\'](ci?d:([\w.%*@-]+))["\']/i', $this->textHtml, $matches) ? array_combine($matches[2], $matches[1]) : [];
     }
-}
-
-/**
- * Class IncomingMailAttachment
- *
- * @property int    $id
- * @property string $name
- * @property string $filePath
- *
- * @package kekaadrenalin\imap
- */
-class IncomingMailAttachment
-{
-    public $id;
-
-    public $name;
-
-    public $filePath;
 }

@@ -1,0 +1,65 @@
+name: 'CI'
+
+on:
+  pull_request:
+  push:
+    branches:
+      - 'master'
+
+env:
+  DEFAULT_COMPOSER_FLAGS: '--prefer-dist --no-interaction --no-progress --optimize-autoloader --ansi'
+  INI_VALUES: zend.assertions=1, error_reporting=-1, date.timezone='UTC', session.save_path="${{ runner.temp }}"
+
+jobs:
+  phpunit:
+    name: PHP ${{ matrix.php }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-latest ]
+        php: [ '7.0', '7.1', '7.2', '7.3', '7.4', '8.0', '8.1', '8.2' ]
+
+    env:
+      IMAP_SERVER_NAME: dovecot.travis.dev
+      IMAP_SERVER_PORT: 993
+      IMAP_USERNAME: dovecot_travis_testuser
+      IMAP_PASSWORD: dovecot_travis_testpwd
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          tools: pecl
+          extensions: imap, iconv, mbstring
+          ini-values: ${{ env.INI_VALUES }}
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+      - name: Cache composer dependencies
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+      - name: Install dependencies
+        run: composer update $DEFAULT_COMPOSER_FLAGS
+      - name: Start IMAP server
+        run: sh .github/dovecot_install.sh
+      - name: Run unit tests with coverage
+        run: vendor/bin/phpunit --verbose --colors=always --no-coverage --no-logging --coverage-clover=coverage.xml
+        if: matrix.php == '7.1'
+      - name: Run unit tests without coverage
+        run: vendor/bin/phpunit --verbose --colors=always --no-coverage --no-logging
+        if: matrix.php != '7.1'
+      - name: Send code coverage report to Codecov.io
+        if: matrix.php == '7.1'
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: kekaadrenalin/yii2-imap
+          file: ./coverage.xml
+          fail_ci_if_error: true

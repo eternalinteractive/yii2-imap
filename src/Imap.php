@@ -26,7 +26,7 @@ use yii\base\InvalidConfigException;
  *             'imapPath' => '{imap.gmail.com:993/imap/ssl}INBOX',
  *             'imapLogin' => 'username',
  *             'imapPassword' => 'password',
- *             'serverEncoding' => 'encoding' // utf-8 default.
+ *             'serverEncoding' => 'encoding', // utf-8 default.
  *             'attachmentsDir' => '/',
  *             'decodeMimeStr' => false // Return as is, default -> true
  *         ],
@@ -52,7 +52,7 @@ class Imap extends Component
      * @return ImapConnection
      * @throws Exception
      */
-    public function getConnection()
+    public function getConnection(): ImapConnection
     {
         if (!$this->_connection) {
             $this->_connection = $this->createConnection();
@@ -62,7 +62,7 @@ class Imap extends Component
     }
 
     /**
-     * @param array $connectionParams
+     * @param array|mixed $connectionParams
      *
      * @throws InvalidConfigException on invalid argument.
      */
@@ -79,7 +79,7 @@ class Imap extends Component
      * @return ImapConnection
      * @throws Exception
      */
-    public function createConnection()
+    public function createConnection(): ImapConnection
     {
         $imapConnection = new ImapConnection();
 

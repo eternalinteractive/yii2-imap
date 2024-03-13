@@ -1,28 +1,64 @@
 {
-    "name": "kekaadrenalin/yii2-imap",
-    "minimum-stability": "dev",
-    "prefer-stable": "true",
-    "description": "yii2 extension to read and process mails from IMAP and PHP",
-    "keywords": ["yii2", "extension", "widget", "imap", "cron", "mail", "inbox"],
-    "homepage": "https://github.com/kekaadrenalin/yii2-imap.git",
-    "type": "yii2-extension",
-    "license": "BSD-3-Clause",
-    "authors": [
-        {
-            "name": "kekaadrenalin",
-            "homepage": "https://github.com/kekaadrenalin"
-        }
-    ],
-    "require": {
-        "php": ">=7.0.0",
-        "ext-imap": "*",
-        "ext-iconv": "*",
-        "ext-mbstring": "*",
-        "yiisoft/yii2": "~2.0.0"
-    },
-    "autoload": {
-        "psr-4": {
-            "kekaadrenalin\\imap\\": "src/"
-        }
+  "name": "kekaadrenalin/yii2-imap",
+  "description": "yii2 extension to read and process mails from IMAP and PHP",
+  "keywords": [
+    "yii2",
+    "extension",
+    "widget",
+    "imap",
+    "cron",
+    "mail",
+    "inbox"
+  ],
+  "homepage": "https://github.com/kekaadrenalin/yii2-imap.git",
+  "type": "yii2-extension",
+  "license": "BSD-3-Clause",
+  "support": {
+    "issues": "https://github.com/kekaadrenalin/yii2-imap/issues"
+  },
+  "authors": [
+    {
+      "name": "kekaadrenalin",
+      "homepage": "https://github.com/kekaadrenalin"
     }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=7.0.0",
+    "ext-imap": "*",
+    "ext-iconv": "*",
+    "ext-mbstring": "*",
+    "yiisoft/yii2": "~2.0.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^6.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "kekaadrenalin\\imap\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "kekaadrenalinunit\\imap\\": "tests"
+    }
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://asset-packagist.org"
+    }
+  ],
+  "config": {
+    "process-timeout": 1800,
+    "fxp-asset": {
+      "enabled": false
+    },
+    "allow-plugins": {
+      "cweagans/composer-patches": true,
+      "yiisoft/yii2-composer": true
+    },
+    "optimize-autoloader": true,
+    "sort-packages": true
+  }
 }
