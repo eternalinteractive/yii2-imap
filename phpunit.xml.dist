@@ -5,7 +5,22 @@
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
-         stopOnFailure="false">
+         displayDetailsOnTestsThatTriggerWarnings="true"
+         displayDetailsOnTestsThatTriggerNotices="true"
+         displayDetailsOnTestsThatTriggerErrors="true"
+         displayDetailsOnTestsThatTriggerDeprecations="true"
+         stopOnFailure="false"
+         cacheDirectory=".phpunit.cache"
+>
+    <php>
+        <ini name="error_reporting" value="E_ALL"/>
+    </php>
+    <coverage>
+        <report>
+            <html outputDirectory="coverage"/>
+            <text outputFile="php://stdout" showOnlySummary="true"/>
+        </report>
+    </coverage>
     <testsuites>
         <testsuite name="Test Suite">
             <directory>./tests</directory>
