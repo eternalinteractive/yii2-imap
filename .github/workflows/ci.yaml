@@ -18,7 +18,12 @@ jobs:
       fail-fast: false
       matrix:
         os: [ ubuntu-latest ]
-        php: [ '7.0', '7.1', '7.2', '7.3', '7.4', '8.0', '8.1', '8.2' ]
+        php: [ '7.0', '7.1', '7.2', '7.3', '7.4' ]
+        code-coverage:
+          - 'none'
+        include:
+          - php-version: '7.4'
+            code-coverage: 'pcov'
 
     env:
       IMAP_SERVER_NAME: dovecot.travis.dev
@@ -30,6 +35,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
       - name: Install PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -37,27 +43,34 @@ jobs:
           tools: pecl
           extensions: imap, iconv, mbstring
           ini-values: ${{ env.INI_VALUES }}, session.save_path="${{ runner.temp }}"
+
       - name: Get composer cache directory
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
       - name: Cache composer dependencies
         uses: actions/cache@v3
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
+
       - name: Install dependencies
         run: composer update $DEFAULT_COMPOSER_FLAGS
+
       - name: Start IMAP server
         run: sh .github/dovecot_install.sh
+
       - name: Run unit tests with coverage
         run: vendor/bin/phpunit --verbose --colors=always --no-coverage --no-logging --coverage-clover=coverage.xml
-        if: matrix.php == '7.1'
+        if: ${{ matrix.code-coverage != 'none' }}
+
       - name: Run unit tests without coverage
         run: vendor/bin/phpunit --verbose --colors=always --no-coverage --no-logging
-        if: matrix.php != '7.1'
+        if: ${{ matrix.code-coverage == 'none' }}
+
       - name: Send code coverage report to Codecov.io
-        if: matrix.php == '7.1'
+        if: ${{ matrix.code-coverage != 'none' }}
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
