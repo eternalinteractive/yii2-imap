@@ -141,7 +141,16 @@ class Mailbox
      */
     protected function initImapStream()
     {
-        if (!$imapStream = @imap_open($this->imapPath, $this->imapLogin, $this->imapPassword, $this->imapOptions, $this->imapRetriesNum, $this->imapParams)) {
+        $imapStream = @imap_open(
+            $this->imapPath,
+            $this->imapLogin,
+            $this->imapPassword,
+            $this->imapOptions,
+            $this->imapRetriesNum,
+            $this->imapParams
+        );
+
+        if (!$imapStream) {
             throw new Exception('Connection error: ' . imap_last_error());
         }
 

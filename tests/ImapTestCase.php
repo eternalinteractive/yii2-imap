@@ -13,13 +13,19 @@ use yii\helpers\FileHelper;
  */
 class ImapTestCase extends TestCase
 {
+    const IMAP_FLAGS = '/imap/ssl/novalidate-cert';
+
     protected function setUp()
     {
         parent::setUp();
 
         FileHelper::createDirectory(__DIR__ . '/runtime');
 
-        $imapPath = '{' . \getenv('IMAP_SERVER_NAME') . ':' . \getenv('IMAP_SERVER_PORT') . '}INBOX';
+        $imapPath = $this->getServerString(
+            \getenv('IMAP_SERVER_NAME'),
+            \getenv('IMAP_SERVER_PORT'),
+            self::IMAP_FLAGS
+        );
         $this->mockApplication([
             'components' => [
                 'imap' => [
@@ -35,5 +41,15 @@ class ImapTestCase extends TestCase
                 ],
             ],
         ]);
+    }
+
+    private function getServerString(string $hostname, string $port, string $flags): string
+    {
+        return \sprintf(
+            '{%s%s%s}',
+            $hostname,
+            '' !== $port ? ':' . $port : '',
+            $flags
+        );
     }
 }

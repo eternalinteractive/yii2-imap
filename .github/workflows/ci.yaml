@@ -8,7 +8,7 @@ on:
 
 env:
   DEFAULT_COMPOSER_FLAGS: '--prefer-dist --no-interaction --no-progress --optimize-autoloader --ansi'
-  INI_VALUES: zend.assertions=1, error_reporting=-1, date.timezone='UTC', session.save_path="${{ runner.temp }}"
+  INI_VALUES: zend.assertions=1, error_reporting=-1, date.timezone='UTC'
 
 jobs:
   phpunit:
@@ -25,6 +25,7 @@ jobs:
       IMAP_SERVER_PORT: 993
       IMAP_USERNAME: dovecot_travis_testuser
       IMAP_PASSWORD: dovecot_travis_testpwd
+      IMAP_QUOTAROOT_SUPPORTED: true
 
     steps:
       - name: Checkout
@@ -35,7 +36,7 @@ jobs:
           php-version: ${{ matrix.php }}
           tools: pecl
           extensions: imap, iconv, mbstring
-          ini-values: ${{ env.INI_VALUES }}
+          ini-values: ${{ env.INI_VALUES }}, session.save_path="${{ runner.temp }}"
       - name: Get composer cache directory
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
