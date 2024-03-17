@@ -22,7 +22,7 @@ jobs:
         code-coverage:
           - 'none'
         include:
-          - php-version: '7.4'
+          - php: '7.4'
             code-coverage: 'pcov'
 
     env:
