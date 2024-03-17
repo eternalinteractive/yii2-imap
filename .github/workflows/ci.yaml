@@ -62,7 +62,7 @@ jobs:
         run: sh .github/dovecot_install.sh
 
       - name: Run unit tests with coverage
-        run: vendor/bin/phpunit --verbose --colors=always --coverage-clover=./coverage.xml
+        run: vendor/bin/phpunit --verbose --colors=always --coverage-clover coverage.xml
         if: ${{ matrix.code-coverage != 'none' }}
 
       - name: Run unit tests without coverage
@@ -75,5 +75,6 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           slug: kekaadrenalin/yii2-imap
+          flags: unittests
           file: ./coverage.xml
           fail_ci_if_error: true
