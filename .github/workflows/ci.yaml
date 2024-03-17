@@ -40,7 +40,7 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           tools: pecl
-          extensions: imap, iconv, mbstring
+          extensions: imap, iconv, mbstring, xdebug
           ini-values: ${{ env.INI_VALUES }}, session.save_path="${{ runner.temp }}"
           coverage: "${{ matrix.code-coverage }}"
 
