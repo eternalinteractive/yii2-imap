@@ -62,7 +62,7 @@ jobs:
         run: sh .github/dovecot_install.sh
 
       - name: Run unit tests with coverage
-        run: vendor/bin/phpunit --verbose --colors=always --coverage-clover coverage.xml
+        run: php${{ matrix.php }} vendor/bin/phpunit --verbose --colors=always --coverage-clover coverage.xml
         if: ${{ matrix.code-coverage != 'none' }}
 
       - name: Run unit tests without coverage
