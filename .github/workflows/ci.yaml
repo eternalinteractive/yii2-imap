@@ -60,6 +60,7 @@ jobs:
 
       - name: Start IMAP server
         run: sh .github/dovecot_install.sh
+        if: ${{ matrix.code-coverage != 'none' }}
 
       - name: Run unit tests with coverage
         run: php${{ matrix.php }} vendor/bin/phpunit --verbose --colors=always --coverage-clover coverage.xml
