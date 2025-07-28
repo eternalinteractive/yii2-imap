@@ -714,7 +714,7 @@ class Mailbox
         if (!empty($partStructure->dparameters)) {
             foreach ($partStructure->dparameters as $param) {
                 $paramName = strtolower(preg_match('~^(.*?)\*~', $param->attribute, $matches) ? $matches[1] : $param->attribute);
-                if (isset($params[$paramName]) || $paramName !== 'charset') {
+                if (isset($params[$paramName]) && $paramName !== 'charset') {
                     $params[$paramName] .= $param->value;
                 } else {
                     $params[$paramName] = $param->value;
