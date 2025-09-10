@@ -667,6 +667,14 @@ class Mailbox
     public function getMailParts(IncomingMail $mail): IncomingMail
     {
         $mailStructure = imap_fetchstructure($this->getImapStream(), $mail->id, FT_UID);
+        if ($mailStructure === false) {
+            $error = imap_last_error();
+            if ($error) {
+                throw new Exception('Failed to fetch mail structure for mail id (' . $mail->id . '): ' . $error);
+            } else {
+                throw new Exception('Failed to fetch mail structure for mail id (' . $mail->id . ')');
+            }
+        }
 
         if (empty($mailStructure->parts)) {
             $this->initMailPart($mail, $mailStructure, 0, $this->markAsSeen);
